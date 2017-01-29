@@ -1,14 +1,80 @@
-# Own Files Cloud Server
-> Own files cloud server is an open source files server based on ExpressJS and MongoDB.
+# Own Files Cloud server [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+> Own files cloud server is an open source files server using ExpressJS and MongoDB.
 
-## Start Own Files Cloud Server
+## Installation
 
-1. Install Node.js
-2. npm install 
-3. npm start
+First, install [Node.js](https://nodejs.org/en/) and [MongoDB](https://docs.mongodb.com/manual/installation/).
 
+1. ``$ cd own-files-cloud-server``
+2. ``$ npm install``
+3. ``$ export MONGODB_URI='...' && export NODE_ENV='development|production|test' && export PORT=3500 && npm start ``
+
+## Features
+
+Portable file server throught http. Uses:
+
+* Store videos/audios/images/files on your MongoDB.
+* Expose your files to http.
+* Filesystem json server
+    * POST / > Will add file to mongoDB gridfs files
+    * DELETE /:filename action=delete source=filename > will delete file by filename
+    * GET /:filename > will get the file name with the content type header
+
+## API docs
+
+### Create new file
+```
+curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-b610-a1d5e61c82c5" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "file=@/Users/macbook/Downloads/656e9325-7484-4ea7-a988-ec8394c796f9.mp4" "http://localhost:3500/"
+```
+* Success Response 
+```
+{
+  "ok": true,
+  "fileName": "48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4",
+  "filePath": "http://localhost:3500/48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4",
+  "message": "File has been successfully created"
+}
+```
+* Error on upload file Response
+```
+{
+  "ok": false,
+  "error": ${err.message},
+  "message": "Error uploading file"
+}
+```
+
+### Request file
+```
+curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 1d2bec92-b917-a8cb-dd64-04bf01f28ce6" "http://localhost:3500/48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4"
+```
+* File not found Response
+```
+{
+  "ok": false,
+  "message": "File not found!"
+}
+```
+### Delete file
+```
+curl -X DELETE -H "Cache-Control: no-cache" -H "Postman-Token: 9509f82f-5816-5339-3de0-772bef44cfe2" "http://localhost:3500/58e9685c-edee-45ba-af62-8ef3e721509a.mp4"
+```
+* Success Response
+```
+{
+  "ok": true,
+  "message": "58e9685c-edee-45ba-af62-8ef3e721509a.mp4 has been successfully deleted!"
+}
+```
+* File not found Response
+```
+{
+  "ok": false,
+  "message": "File not found!"
+}
+```
 ## ISC License (ISC)
-Copyright <2017> <Own Files Cloud>
+Copyright <2017> <OwnFilesCloud>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
