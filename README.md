@@ -22,9 +22,9 @@ Portable file server throught http. Uses:
 
 ## API docs
 
-### Create new file
+### Create new file: **POST** ``/api/v1/files/``
 ```
-curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-b610-a1d5e61c82c5" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "file=@/Users/macbook/Downloads/656e9325-7484-4ea7-a988-ec8394c796f9.mp4" "http://localhost:3500/"
+curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-b610-a1d5e61c82c5" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "file=@/Users/macbook/Downloads/656e9325-7484-4ea7-a988-ec8394c796f9.mp4" "http://localhost:3500/api/v1/files/"
 ```
 * Success-Response 
 ```
@@ -46,9 +46,9 @@ HTTP/1.1 500 INTERNAL SERVER ERROR
 }
 ```
 
-### Request file
+### Request file: **GET**: ``/api/v1/files/:filename``
 ```
-curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 1d2bec92-b917-a8cb-dd64-04bf01f28ce6" "http://localhost:3500/48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4"
+curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 1d2bec92-b917-a8cb-dd64-04bf01f28ce6" "http://localhost:3500/api/v1/files/48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4"
 ```
 * File not found Response
 ```
@@ -58,9 +58,9 @@ HTTP/1.1 404 NOT FOUND
   "message": "File not found!"
 }
 ```
-### Delete file
+### Delete file: **DELETE** ``/api/v1/files/filename``
 ```
-curl -X DELETE -H "Cache-Control: no-cache" -H "Postman-Token: 9509f82f-5816-5339-3de0-772bef44cfe2" "http://localhost:3500/58e9685c-edee-45ba-af62-8ef3e721509a.mp4"
+curl -X DELETE -H "Cache-Control: no-cache" -H "Postman-Token: 9509f82f-5816-5339-3de0-772bef44cfe2" "http://localhost:3500/api/v1/files/58e9685c-edee-45ba-af62-8ef3e721509a.mp4"
 ```
 * Success-Response
 ```
