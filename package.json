@@ -1,7 +1,7 @@
 {
-  "name": "gridfs-express",
+  "name": "own-files-cloud-server",
   "version": "1.0.0",
-  "description": "Files server using Mongodb gridfs",
+  "description": "Own files Cloud server based on Express and MongoDB Gridfs",
   "main": "server.js",
   "scripts": {
     "start" : "node server.js",
