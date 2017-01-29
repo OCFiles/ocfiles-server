@@ -1,4 +1,4 @@
-# Own Files Cloud server [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# Own Files Cloud server
 > Own files cloud server is an open source files server using ExpressJS and MongoDB.
 
 ## Installation
