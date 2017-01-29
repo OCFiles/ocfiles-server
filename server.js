@@ -56,7 +56,7 @@ conn.once('open', () => {
         fs.createReadStream(`./uploads/${req.file.filename}`)
             .on('end', () => {
                 fs.unlink(`./uploads/${req.file.filename}`, (err) => {
-                    return res.send({
+                    return res.status(201).send({
                         ok: true,
                         fileName: req.file.filename,
                         filePath: `${config.host}/${req.file.filename}`,
@@ -65,9 +65,9 @@ conn.once('open', () => {
                 });
             })
             .on('error', (err) => {
-                return res.send({
+                return res.status(500).send({
                     ok: false,
-                    message: 'Error uploading image',
+                    message: 'Error uploading file',
                     error: err.message
                 });
             })
@@ -79,13 +79,13 @@ conn.once('open', () => {
             filename: req.params.filename
         }, function (err, file) {
             if (err) {
-                return res.send({
+                return res.status(500).send({
                     ok: false,
                     message: err.message
                 });
             }
             if (!file) {
-                return res.send({
+                return res.status(404).send({
                     ok: false,
                     message: 'File not found!'
                 });
@@ -96,7 +96,11 @@ conn.once('open', () => {
             });
 
             readStream.on('error', (err) => {
-                res.send('No image found with that title');
+                return res.status(500).send({
+                    ok: false,
+                    message: 'File not found!',
+                    error: err.message
+                });
             });
             readStream.pipe(res);
         });
@@ -107,13 +111,13 @@ conn.once('open', () => {
             filename: req.params.filename
         }, function (err, file) {
             if (err) {
-                return res.send({
+                return res.status(500).send({
                     ok: false,
                     message: err.message
                 });
             }
             if (!file) {
-                return res.send({
+                return res.status(404).send({
                     ok: false,
                     message: 'File not found!'
                 });
@@ -122,13 +126,13 @@ conn.once('open', () => {
                 filename: req.params.filename
             }, function (err) {
                 if (err) {
-                    return res.send({
+                    return res.status(500).send({
                         ok: false,
                         message: 'Something went wrong please try later',
                         error: err.message
                     });
                 }
-                return res.send({
+                return res.status(200).send({
                     ok: true,
                     message: `${req.params.filename} has been successfully deleted!`
                 });
