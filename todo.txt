@@ -1,0 +1,3 @@
+(A) Refactoring own files cloud server
+(A) Add config folder (Set Mongodb URI and server PORT)
+(A) Create helpers modules
