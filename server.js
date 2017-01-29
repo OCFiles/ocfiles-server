@@ -1,13 +1,18 @@
 'use strict';
+// Set default node environment to development
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 const express = require('express');
-const app = express();
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const mongoose = require('mongoose');
-const uuidV4 = require('uuid/v4');
 const mime = require('mime-types');
+const uuidV4 = require('uuid/v4');
+
+const config = require('./config/enviroment');
+
+const app = express();
 
 // Multer disk storage configuration
 const storage = multer.diskStorage({
@@ -22,8 +27,9 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage
 });
+
 // Data base connection 
-mongoose.connect('mongodb://localhost/images');
+mongoose.connect(config.mongo.uri);
 
 const conn = mongoose.connection;
 
@@ -53,7 +59,7 @@ conn.once('open', () => {
                     return res.send({
                         ok: true,
                         fileName: req.file.filename,
-                        filePath: `http://localhost:3000/${req.file.filename}`,
+                        filePath: `${config.host}/${req.file.filename}`,
                         message: 'File has been successfully created'
                     });
                 });
@@ -131,4 +137,4 @@ conn.once('open', () => {
     });
 });
 
-app.listen(3000);
+app.listen(config.port);
