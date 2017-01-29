@@ -26,8 +26,9 @@ Portable file server throught http. Uses:
 ```
 curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-b610-a1d5e61c82c5" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "file=@/Users/macbook/Downloads/656e9325-7484-4ea7-a988-ec8394c796f9.mp4" "http://localhost:3500/"
 ```
-* Success Response 
+* Success-Response 
 ```
+HTTP/1.1 201 CREATED
 {
   "ok": true,
   "fileName": "48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4",
@@ -35,8 +36,9 @@ curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-
   "message": "File has been successfully created"
 }
 ```
-* Error on upload file Response
+* Error-Response
 ```
+HTTP/1.1 500 INTERNAL SERVER ERROR
 {
   "ok": false,
   "error": ${err.message},
@@ -50,6 +52,7 @@ curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 1d2bec92-b917-a8cb-d
 ```
 * File not found Response
 ```
+HTTP/1.1 404 NOT FOUND
 {
   "ok": false,
   "message": "File not found!"
@@ -59,8 +62,9 @@ curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 1d2bec92-b917-a8cb-d
 ```
 curl -X DELETE -H "Cache-Control: no-cache" -H "Postman-Token: 9509f82f-5816-5339-3de0-772bef44cfe2" "http://localhost:3500/58e9685c-edee-45ba-af62-8ef3e721509a.mp4"
 ```
-* Success Response
+* Success-Response
 ```
+HTTP/1.1 200 OK
 {
   "ok": true,
   "message": "58e9685c-edee-45ba-af62-8ef3e721509a.mp4 has been successfully deleted!"
@@ -68,6 +72,7 @@ curl -X DELETE -H "Cache-Control: no-cache" -H "Postman-Token: 9509f82f-5816-533
 ```
 * File not found Response
 ```
+HTTP/1.1 404 NOT FOUND
 {
   "ok": false,
   "message": "File not found!"
