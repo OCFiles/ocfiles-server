@@ -1,11 +1,11 @@
-# Own Files Cloud server
-> Own files cloud server is an open source files server using ExpressJS and MongoDB.
+# OCFiles Server
+> OCFiles server is an open source files server using ExpressJS and MongoDB.
 
 ## Installation
 
 First, install [Node.js](https://nodejs.org/en/) and [MongoDB](https://docs.mongodb.com/manual/installation/).
 
-1. ``$ cd own-files-cloud-server``
+1. ``$ cd ocfiles-server`
 2. ``$ npm install``
 3. ``$ export MONGODB_URI='...' && export NODE_ENV='development|production|test' && export PORT=3500 && npm start ``
 
@@ -79,7 +79,7 @@ HTTP/1.1 404 NOT FOUND
 }
 ```
 ## ISC License (ISC)
-Copyright <2017> <OwnFilesCloud>
+Copyright <2017> <OCFiles>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
