@@ -9,6 +9,7 @@ const uuidV4 = require('uuid/v4');
 const config = require('../../config/enviroment');
 
 const uploadDir = path.join(config.root, './uploads');
+
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
