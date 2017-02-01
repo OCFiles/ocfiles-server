@@ -8,6 +8,7 @@ module.exports = function (gfs) {
     // Files routes
     router
         .post('/', controller.upload.single('file'), controller.uploadFile)
+        .post('/url', controller.downloadFileFromUrl)
         .get('/:filename', controller.checkIfFileExist, controller.getFile)
         .delete('/:filename', controller.checkIfFileExist, controller.deleteFile);
 
