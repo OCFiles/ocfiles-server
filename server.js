@@ -30,6 +30,53 @@ connection.once('open', () => {
             api: 'OCFiles API v0.1.0'
         });
     });
+
+    // catch 404 and forward to error handler
+    app.use(function (req, res, next) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    });
+
+    // will print stacktrace
+    if (app.get('env') === 'development') {
+        app.use('/:url(api|auth)/*', function (err, req, res, next) {
+            res.status(err.status || 500);
+            res.send({
+                ok: false,
+                message: err.message,
+                status: 500,
+                error: err.stack
+            });
+        });
+        app.use(function (err, req, res, next) {
+            res.status(err.status || 500);
+            res.render('error', {
+                ok: false,
+                message: err.message,
+                error: err
+            });
+        });
+    }
+
+    // production error handler
+    // no stacktraces leaked to user
+    app.use('/:url(api|auth)/*', function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.send({
+            ok: false,
+            message: err.message,
+            status: 500,
+            error: err.stack
+        });
+    });
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
 });
 
 app.listen(config.port);
