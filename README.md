@@ -23,6 +23,12 @@ Portable file server throught http. Uses:
 ## API docs
 
 ### Create new file: **POST** ``/api/v1/files/``
+
+```file``` required field
+
+```name``` optional field (used to set a name for the file, or it will named with it's original name)
+
+
 ```
 curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-b610-a1d5e61c82c5" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "file=@/Users/macbook/Downloads/656e9325-7484-4ea7-a988-ec8394c796f9.mp4" "http://localhost:3500/api/v1/files/"
 ```
