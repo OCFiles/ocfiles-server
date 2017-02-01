@@ -53,6 +53,33 @@ HTTP/1.1 500 INTERNAL SERVER ERROR
 }
 ```
 
+### upload file from another url ```/api/v1/files/url```
+
+```url``` file url
+
+```name``` optional field (used to set a name for the file, or it will named with it's original name)
+
+* Success-Response 
+```
+HTTP/1.1 201 CREATED
+{
+  "ok": true,
+  "publicName": "376de710-4c68-406b-8e92-8747e8460412.pdf",
+  "name": "Resume",
+  "url": "http://localhost:3500/api/v1/files/376de710-4c68-406b-8e92-8747e8460412.pdf",
+  "message": "File has been successfully created"
+}
+```
+* Error-Response
+```
+HTTP/1.1 500 INTERNAL SERVER ERROR
+{
+  "ok": false,
+  "error": ${err.message},
+  "message": "Error uploading file"
+}
+```
+
 ### Request file: **GET**: ``/api/v1/files/:filename``
 ```
 curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 1d2bec92-b917-a8cb-dd64-04bf01f28ce6" "http://localhost:3500/api/v1/files/48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4"
