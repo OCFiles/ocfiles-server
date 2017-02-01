@@ -14,20 +14,20 @@ const app = express();
 // Data base connection 
 mongoose.connect(config.mongo.uri);
 
-const conn = mongoose.connection;
+const connection = mongoose.connection;
 
 const Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 
-conn.once('open', () => {
+connection.once('open', () => {
 
-    const gfs = Grid(conn.db);
+    const gfs = Grid(connection.db);
 
     require('./routes')(app, gfs);
 
     app.get('/', (req, res) => {
         return res.send({
-            api: 'Images files API v0.1.0'
+            api: 'OCFiles API v0.1.0'
         });
     });
 });
