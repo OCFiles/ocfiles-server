@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = function(gfs) {
+module.exports = function (gfs) {
     const controller = require('./controller')(gfs);
     // Files routes
     router
