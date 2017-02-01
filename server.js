@@ -5,11 +5,12 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const express = require('express');
 
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 
 const config = require('./config/enviroment');
 
 const app = express();
+app.use(bodyParser.json());
 
 // Data base connection 
 mongoose.connect(config.mongo.uri);
