@@ -32,12 +32,14 @@ module.exports = function (gfs) {
     return {
         uploadFile(req, res) {
             const tempFilePath = `${uploadDir}/${req.file.filename}`;
+            const mimeType = mime.lookup(path.extname(req.file.filename));
+            const fileName = req.body.name || req.file.originalname;
             const writeStream = gfs.createWriteStream({
                 filename: req.file.filename,
                 content_type: mime.contentType(req.file.filename),
                 metadata: {
-                    mime: mime.lookup(path.extname(req.file.filename)),
-                    name: req.body.name || req.file.originalname
+                    mime: mimeType,
+                    name: fileName 
                 }
             });
             fs.createReadStream(tempFilePath)
@@ -45,8 +47,9 @@ module.exports = function (gfs) {
                     fs.unlink(tempFilePath, (err) => {
                         return res.status(201).send({
                             ok: true,
-                            fileName: req.file.filename,
-                            filePath: `${config.host}/api/${config.apiVersion}/files/${req.file.filename}`,
+                            publicName: req.file.filename,
+                            name: fileName,
+                            url: `${config.host}/api/${config.apiVersion}/files/${req.file.filename}`,
                             message: 'File has been successfully created'
                         });
                     });
