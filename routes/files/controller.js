@@ -36,7 +36,8 @@ module.exports = function (gfs) {
                 filename: req.file.filename,
                 content_type: mime.contentType(req.file.filename),
                 metadata: {
-                    mime: mime.lookup(path.extname(req.file.filename))
+                    mime: mime.lookup(path.extname(req.file.filename)),
+                    name: req.body.name || req.file.originalname
                 }
             });
             fs.createReadStream(tempFilePath)
