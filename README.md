@@ -30,15 +30,16 @@ Portable file server throught http. Uses:
 
 
 ```
-curl -X POST -H "Cache-Control: no-cache" -H "Postman-Token: 5f945724-564c-a7c7-b610-a1d5e61c82c5" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "file=@/Users/macbook/Downloads/656e9325-7484-4ea7-a988-ec8394c796f9.mp4" "http://localhost:3500/api/v1/files/"
+curl -X POST -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -H "Cache-Control: no-cache" -H "Postman-Token: 2ab0ad5d-ecdf-046c-3d48-54e03bee7619" -F "file=@/Users/macbookproretina13/Downloads/CV Karim Salih.pdf" -F "name=Resume" "http://localhost:3500/api/v1/files"
 ```
 * Success-Response 
 ```
 HTTP/1.1 201 CREATED
 {
   "ok": true,
-  "fileName": "48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4",
-  "filePath": "http://localhost:3500/48ae95ab-927f-45fb-8c9c-c08cb170d7ba.mp4",
+  "publicName": "376de710-4c68-406b-8e92-8747e8460412.pdf",
+  "name": "Resume",
+  "url": "http://localhost:3500/api/v1/files/376de710-4c68-406b-8e92-8747e8460412.pdf",
   "message": "File has been successfully created"
 }
 ```
