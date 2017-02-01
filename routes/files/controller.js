@@ -9,7 +9,7 @@ const uuidV4 = require('uuid/v4');
 const config = require('../../config/enviroment');
 
 const uploadDir = path.join(config.root, './uploads');
-if(!fs.existsSync(uploadDir)){
+if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 // Multer disk storage configuration
@@ -44,7 +44,7 @@ module.exports = function (gfs) {
                         return res.status(201).send({
                             ok: true,
                             fileName: req.file.filename,
-                            filePath: `${config.host}/api/v1/files/${req.file.filename}`,
+                            filePath: `${config.host}/api/${config.apiVersion}/files/${req.file.filename}`,
                             message: 'File has been successfully created'
                         });
                     });
