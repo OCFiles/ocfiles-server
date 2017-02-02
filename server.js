@@ -1,7 +1,7 @@
 'use strict';
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
+const chalk = require('chalk');
 const express = require('express');
 
 const mongoose = require('mongoose');
@@ -13,7 +13,11 @@ const app = express();
 app.use(bodyParser.json());
 
 // Data base connection 
-mongoose.connect(config.mongo.uri);
+mongoose.connect(config.mongo.uri, (err) => {
+    if (err) {
+        console.log(chalk.bold.red('Please check you MongoDB instance connection'));
+    }
+});
 
 const connection = mongoose.connection;
 
