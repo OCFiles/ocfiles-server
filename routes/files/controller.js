@@ -157,6 +157,12 @@ module.exports = function (gfs) {
                         message: 'Failed to load the url'
                     });
                 })
+        },
+        getFileDetails(req, res) {
+            delete req.file.chunkSize;
+            delete req.file.aliases;
+            delete req.file.md5;
+            return res.send(req.file);
         }
     };
 };

@@ -10,6 +10,7 @@ module.exports = function (gfs) {
         .post('/', controller.upload.single('file'), controller.uploadFile)
         .post('/url', controller.downloadFileFromUrl)
         .get('/:filename', controller.checkIfFileExist, controller.getFile)
+        .get('/:filename/details', controller.checkIfFileExist, controller.getFileDetails)
         .delete('/:filename', controller.checkIfFileExist, controller.deleteFile);
 
     return router;
