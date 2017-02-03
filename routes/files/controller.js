@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const uuidV4 = require('uuid/v4');
 const url = require('url');
-const https = require('https');
+const request = require('request');
 
 const config = require('../../config/enviroment');
 
@@ -119,37 +119,44 @@ module.exports = function (gfs) {
         },
         upload,
         downloadFileFromUrl(req, res) {
+            let parsedUrl = path.parse(req.body.url);
+            let publicName = `${uuidV4()}${parsedUrl.ext}`;
+            let fileName = req.body.name || parsedUrl.name;
 
-            https.get(req.body.url, (urlRes) => {
-                let parsedUrl = path.parse(req.body.url);
-                let publicName = `${uuidV4()}${parsedUrl.ext}`;
-                let fileName = req.body.name || parsedUrl.name;
-                const writeStream = gfs.createWriteStream({
-                    filename: publicName,
-                    content_type: urlRes.headers["content-type"],
-                    metadata: {
-                        mime: urlRes.headers["content-type"],
-                        name: fileName
-                    }
-                });
-                writeStream.on('finish', () => {
-                        return res.status(201).send({
-                            ok: true,
-                            publicName: publicName,
-                            name: fileName,
-                            url: `${config.host}/api/${config.apiVersion}/files/${publicName}`,
-                            message: 'File has been successfully created'
-                        });
-                    })
-                    .on('error', (err) => {
-                        return res.status(500).send({
-                            ok: false,
-                            message: 'Error uploading file',
-                            error: err.message
-                        });
-                    })
-                urlRes.pipe(writeStream);
-            });
+            request.get(req.body.url)
+                .on('response', function (response) {
+                    const writeStream = gfs.createWriteStream({
+                        filename: publicName,
+                        content_type: response.headers["content-type"],
+                        metadata: {
+                            mime: response.headers["content-type"],
+                            name: fileName
+                        }
+                    });
+                    writeStream.on('finish', () => {
+                            return res.status(201).send({
+                                ok: true,
+                                publicName: publicName,
+                                name: fileName,
+                                url: `${config.host}/api/${config.apiVersion}/files/${publicName}`,
+                                message: 'File has been successfully created'
+                            });
+                        })
+
+                        .on('error', (err) => {
+                            return res.status(500).send({
+                                ok: false,
+                                message: 'Error uploading file',
+                                error: err.message
+                            });
+                        })
+                    response.pipe(writeStream);
+                }).on('error', function (err) {
+                    return res.status(500).send({
+                        ok: false,
+                        message: 'Failed to load the url'
+                    });
+                })
         }
     };
 };
