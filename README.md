@@ -92,6 +92,31 @@ HTTP/1.1 404 NOT FOUND
   "message": "File not found!"
 }
 ```
+### Get file details file: **DELETE** ``/api/v1/files/{filename}/details``
+* Success-Response
+```
+HTTP/1.1 200 OK
+{
+  "_id": "589465588a2b3b12d5e04299",
+  "filename": "1ca00d8e-8b87-4205-b090-b7c8e78ac486.html",
+  "contentType": "text/html",
+  "length": 49319,
+  "uploadDate": "2017-02-03T11:11:21.027Z",
+  "metadata": {
+    "mime": "text/html",
+    "name": "url"
+  }
+}
+```
+* File not found Response
+```
+HTTP/1.1 404 NOT FOUND
+{
+  "ok": false,
+  "message": "File not found!"
+}
+```
+
 ### Delete file: **DELETE** ``/api/v1/files/filename``
 ```
 curl -X DELETE -H "Cache-Control: no-cache" -H "Postman-Token: 9509f82f-5816-5339-3de0-772bef44cfe2" "http://localhost:3500/api/v1/files/58e9685c-edee-45ba-af62-8ef3e721509a.mp4"
