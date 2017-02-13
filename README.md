@@ -1,4 +1,7 @@
 # OCFiles Server
+[![Build Status](https://travis-ci.org/OCFiles/ocfiles-server.svg?branch=master)](https://travis-ci.org/OCFiles/ocfiles-server)
+[![Build status](https://ci.appveyor.com/api/projects/status/fybbhbbexp5rwm56?svg=true)](https://ci.appveyor.com/project/Lazhari/ocfiles-server)
+[![Coverage Status](https://coveralls.io/repos/github/OCFiles/ocfiles-server/badge.svg?branch=master)](https://coveralls.io/github/OCFiles/ocfiles-server?branch=master)
 > OCFiles server is an open source files server using ExpressJS and MongoDB.
 
 ## Installation
