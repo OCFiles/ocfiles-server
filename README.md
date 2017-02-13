@@ -22,8 +22,10 @@ Portable file server throught http. Uses:
     * POST / > Will add file to mongoDB gridfs files
     * DELETE /:filename action=delete source=filename > will delete file by filename
     * GET /:filename > will get the file name with the content type header
+    
 ## API docs
 > Please check out the doc on project Wiki [API docs](https://github.com/OCFiles/ocfiles-server/wiki)
+
 ## ISC License (ISC)
 Copyright <2017> <OCFiles>
 
