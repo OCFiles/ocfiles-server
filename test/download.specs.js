@@ -59,6 +59,41 @@ describe('Testing Files resources', () => {
 	});
 
 	/**
+	 * Testing POST /api/v1/files/url
+	 */
+	describe('POST /api/v1/files: ', () => {
+		it('It should GET the file infos as response for URL upload', (done) => {
+			const url = 'http://hartschools.net/wp-content/uploads/2016/02/Testing-Sign.jpg';
+			chai.request(server)
+				.post('/api/v1/files/url')
+				.send({url})
+				.end((err, res) => {
+					res.should.have.status(201);
+					res.body.should.have.property('ok', true);
+					res.body.should.have.property('publicName');
+					res.body.should.have.property('name');
+					res.body.should.have.property('url');
+					res.body.should.have.property('message', 'File has been successfully created');
+					done();
+				});
+		});
+
+		it('It should GET an error for empty URL', (done) => {
+			chai.request(server)
+				.post('/api/v1/files/url')
+				.send({url: ''})
+				.end((err, res) => {
+					res.should.have.status(500);
+					res.body.should.have.property('ok', false);
+					res.body.should.have.property('error');
+					res.body.should.have.property('message');
+					done();
+				});
+		});
+
+	});
+
+	/**
 	 * Testing GET /api/v1/files/:fileName
 	 */
 	describe('Testing GET /api/v1/files/:filename', () => {
