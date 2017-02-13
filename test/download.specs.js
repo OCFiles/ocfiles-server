@@ -98,4 +98,46 @@ describe('Testing Files resources', () => {
 				.pipe(writeStream);
 		});
 	});
+
+	/**
+	 * Testing DELETE /api/v1/files/:fileName
+	 */
+	describe ('Testing DELETE /api/v1/files/:filename', () => {
+		it('It should GET not found if the file name don\'t exist', (done) => {
+			chai.request(server)
+				.delete('/api/v1/file/test')
+				.end((err, res) => {
+					res.should.have.status(404);
+					res.body.should.have.property('ok', false);
+					res.body.should.have.property('message', 'Not Found');
+					done();
+				});
+		});
+		it('It should DELETE the file', (done) => {
+			const mimeType = mime.lookup(image);
+			const fileName = 'smile.png';
+			const writeStream = gfs.createWriteStream({
+				filename: 'smile.png',
+				content_type: mime.contentType('smile.png'),
+				metadata: {
+					mime: mimeType,
+					name: fileName
+				}
+			});
+			fs.createReadStream(image)
+				.on('end', () => {
+					setTimeout(() => {
+						chai.request(server)
+						.delete(`/api/v1/files/${fileName}`)
+						.end((err, res) => {
+							res.should.have.status(200);
+							res.body.should.have.property('ok', true);
+							res.body.should.have.property('message');
+							done();
+						});
+					}, 100);
+				})
+				.pipe(writeStream);
+		});
+	});
 });
