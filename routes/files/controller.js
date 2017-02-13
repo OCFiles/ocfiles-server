@@ -8,7 +8,7 @@ const uuidV4 = require('uuid/v4');
 const url = require('url');
 const request = require('request');
 
-const config = require('../../config/enviroment');
+const config = require('../../config/environment');
 
 const uploadDir = path.join(config.root, './uploads');
 
