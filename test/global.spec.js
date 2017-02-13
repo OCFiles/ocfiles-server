@@ -39,4 +39,16 @@ describe('Testing Files resources', () => {
 		});
 
 	});
+
+    describe('POST / ', () => {
+		it('It should get not found error', (done) => {
+			chai.request(server)
+				.post('/')
+				.end((err, res) => {
+					res.should.have.status(404);
+					done();
+				});
+		});
+
+	});
 });
