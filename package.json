@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha --reporter spec"
+    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Lazhari",
   "license": "ISC",
