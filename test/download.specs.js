@@ -86,12 +86,14 @@ describe('Testing Files resources', () => {
 			});
 			fs.createReadStream(image)
 				.on('end', () => {
-					chai.request(server)
+					setTimeout(() => {
+						chai.request(server)
 						.get(`/api/v1/files/${fileName}`)
 						.end((err, res) => {
 							res.should.have.status(200);
 							done();
 						});
+					}, 100);
 				})
 				.pipe(writeStream);
 		});
