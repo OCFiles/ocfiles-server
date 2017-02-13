@@ -7,7 +7,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const config = require('./config/enviroment');
+const config = require('./config/environment');
 
 const app = express();
 app.use(bodyParser.json());
@@ -85,3 +85,5 @@ connection.once('open', () => {
 });
 
 app.listen(config.port);
+// Export app for test
+module.exports = app;
