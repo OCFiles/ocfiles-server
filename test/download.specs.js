@@ -93,7 +93,7 @@ describe('Testing Files resources', () => {
 							res.should.have.status(200);
 							done();
 						});
-					}, 100);
+					}, 300);
 				})
 				.pipe(writeStream);
 		});
@@ -135,7 +135,54 @@ describe('Testing Files resources', () => {
 							res.body.should.have.property('message');
 							done();
 						});
-					}, 100);
+					}, 300);
+				})
+				.pipe(writeStream);
+		});
+	});
+
+	/**
+	 * Testing GET /api/v1/files/{filename}/details
+	 */
+	describe ('Testing GET /api/v1/files/{filename}/details', () => {
+		it('It should GET not found if the file name don\'t exist', (done) => {
+			chai.request(server)
+				.get('/api/v1/file/test/details')
+				.end((err, res) => {
+					res.should.have.status(404);
+					res.body.should.have.property('ok', false);
+					res.body.should.have.property('message', 'Not Found');
+					done();
+				});
+		});
+		it('It should GET the file details', (done) => {
+			const mimeType = mime.lookup(image);
+			const fileName = 'smile.png';
+			const writeStream = gfs.createWriteStream({
+				filename: 'smile.png',
+				content_type: mime.contentType('smile.png'),
+				metadata: {
+					mime: mimeType,
+					name: fileName
+				}
+			});
+			fs.createReadStream(image)
+				.on('end', () => {
+					setTimeout(() => {
+						chai.request(server)
+						.get(`/api/v1/files/${fileName}/details`)
+						.end((err, res) => {
+							res.should.have.status(200);
+							res.body.should.have.property('_id');
+							res.body.should.have.property('filename', 'smile.png');
+							res.body.should.have.property('contentType');
+							res.body.should.have.property('length');
+							res.body.should.have.property('uploadDate');
+							res.body.should.have.property('metadata');
+							res.body.metadata.should.be.a('object');
+							done();
+						});
+					}, 300);
 				})
 				.pipe(writeStream);
 		});
