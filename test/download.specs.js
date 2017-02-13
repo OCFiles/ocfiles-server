@@ -62,8 +62,24 @@ describe('Testing Files resources', () => {
 	 * Testing POST /api/v1/files/url
 	 */
 	describe('POST /api/v1/files: ', () => {
-		it('It should GET the file infos as response for URL upload', (done) => {
+		it('It should GET the file infos as response for HTTP URL on upload', (done) => {
 			const url = 'http://hartschools.net/wp-content/uploads/2016/02/Testing-Sign.jpg';
+			chai.request(server)
+				.post('/api/v1/files/url')
+				.send({url})
+				.end((err, res) => {
+					res.should.have.status(201);
+					res.body.should.have.property('ok', true);
+					res.body.should.have.property('publicName');
+					res.body.should.have.property('name');
+					res.body.should.have.property('url');
+					res.body.should.have.property('message', 'File has been successfully created');
+					done();
+				});
+		});
+
+		it('It should GET the file infos as response for HTTPs URL on upload', (done) => {
+			const url = 'https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/lab-128.png';
 			chai.request(server)
 				.post('/api/v1/files/url')
 				.send({url})
