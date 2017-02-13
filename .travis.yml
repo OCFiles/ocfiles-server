@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+    - "4.7"
+    - "5.12"
+    - "6.9"
+    - "7.5"
+services:
+    - mongodb
+env:
+  global:
+    - NODE_ENV=test
+after_success: npm run coverage
+cache:
+  directories:
+    - node_modules
