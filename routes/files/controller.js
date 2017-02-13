@@ -127,9 +127,9 @@ module.exports = function (gfs) {
                 .on('response', function (response) {
                     const writeStream = gfs.createWriteStream({
                         filename: publicName,
-                        content_type: response.headers["content-type"],
+                        content_type: response.headers['content-type'],
                         metadata: {
-                            mime: response.headers["content-type"],
+                            mime: response.headers['content-type'],
                             name: fileName
                         }
                     });
@@ -142,21 +142,20 @@ module.exports = function (gfs) {
                                 message: 'File has been successfully created'
                             });
                         })
-
                         .on('error', (err) => {
                             return res.status(500).send({
                                 ok: false,
                                 message: 'Error uploading file',
                                 error: err.message
                             });
-                        })
+                        });
                     response.pipe(writeStream);
                 }).on('error', function (err) {
                     return res.status(500).send({
                         ok: false,
                         message: 'Failed to load the url'
                     });
-                })
+                });
         },
         getFileDetails(req, res) {
             delete req.file.chunkSize;
