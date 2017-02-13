@@ -23,10 +23,9 @@ const connection = mongoose.connection;
 
 const Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
+const gfs = Grid(connection.db);
 
 connection.once('open', () => {
-
-    const gfs = Grid(connection.db);
 
     require('./routes')(app, gfs);
 
@@ -86,4 +85,7 @@ connection.once('open', () => {
 
 app.listen(config.port);
 // Export app for test
-module.exports = app;
+module.exports = {
+    app,
+    gfs
+};
