@@ -8,9 +8,25 @@
 
 First, install [Node.js](https://nodejs.org/en/) and [MongoDB](https://docs.mongodb.com/manual/installation/).
 
-1. ``$ cd ocfiles-server``
-2. ``$ npm install``
-3. ``$ export MONGODB_URI='...' && export NODE_ENV='development|production|test' && export PORT=3500 && npm start ``
+1. Then hop over to the directory of the repo you've cloned:
+```
+$ cd ocfiles-server
+```
+
+2. Install all the needed dependencies:
+```
+$ npm install
+```
+
+3. Set up the environment variables ocfiles-server requires:
+```
+$ export MONGODB_URI='...' && export NODE_ENV='development|production|test' && export PORT=3500
+```
+4. Launch ocfiles-server
+```
+$ npm start
+```
+
 
 ## Features
 
